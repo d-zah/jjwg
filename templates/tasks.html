@@ -11,8 +11,8 @@
     <body>
         <nav>
             <a href="{{ url_for('index') }}"> Home</a> ||
-            <a href="{{ url_for('get_notes') }}"> My Tasks</a> ||
-            <a href="{{ url_for('new_note') }}"> Add Task</a> || 
+            <a href="{{ url_for('get_tasks') }}"> My Tasks</a> ||
+            <a href="{{ url_for('new_task') }}"> Add Task</a> || 
             <a href="{{ url_for('logout') }}"> Logout</a>
         </nav>
 
@@ -24,13 +24,13 @@
                 <th>Title</th>
                 <th>Date</th>
             </tr>
-            {% for note in notes %}
+            {% for task in tasks %}
             <tr>
-                <td><a href="{{ url_for('get_note', note_id=note.id) }}">{{ note.title }}</a></td>
-                <td>{{ note.date }}</td>
-                <td><a href="{{ url_for('update_note', note_id=note.id) }}">Edit</a></td>
+                <td><a href="{{ url_for('get_task', task_id=task.id) }}">{{ task.title }}</a></td>
+                <td>{{ task.date }}</td>
+                <td><a href="{{ url_for('update_task', task_id=task.id) }}">Edit</a></td>
                 <td>
-                    <form action="{{ url_for('delete_note', note_id=note.id) }}" method="post">
+                    <form action="{{ url_for('delete_task', task_id=task.id) }}" method="post">
                         <input type="submit" value="Delete">
                     </form>
                 </td>
