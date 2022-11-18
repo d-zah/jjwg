@@ -68,7 +68,7 @@ def new_task():
 
             return redirect(url_for('get_tasks'))
         else:
-            return render_template('new.html', user=session['user_id'])
+            return render_template('new.html', user=session['user'])
     else:
         return redirect(url_for('login'))
 
