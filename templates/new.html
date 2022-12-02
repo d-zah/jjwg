@@ -25,11 +25,11 @@
                 <p><label>Task </label></p>
                 <p>
                     <textarea name="taskText" rows="6" cols="0">
-                        {% if task %}
+{% if task %}
 {{task.text}}
-                        {% else %}
+{% else %}
 Add your new task here ...
-                        {% endif %}
+{% endif %}
 
                     </textarea>
                 </p>

@@ -7,6 +7,7 @@ class Task(db.Model):
     title = db.Column("title", db.String(200))
     text = db.Column("text", db.String(100))
     date = db.Column("date", db.String(50))
+    likes = db.Column("likes", db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     comments = db.relationship("Comment", backref="task", cascade="all, delete-orphan", lazy=True)
 
@@ -15,6 +16,7 @@ class Task(db.Model):
         self.text = text
         self.date = date
         self.user_id = user_id
+        self.likes = 0
 
 class User(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
@@ -23,6 +25,7 @@ class User(db.Model):
     email = db.Column("email", db.String(100))
     password = db.Column(db.String(255), nullable=False)
     registered_on = db.Column(db.DateTime, nullable=False)
+    dark_mode = db.Column("dark_mode", db.Boolean)
     tasks = db.relationship("Task", backref="user", lazy=True)
     comments = db.relationship("Comment", backref="user", lazy=True)
 
@@ -32,6 +35,7 @@ class User(db.Model):
         self.email = email
         self.password = password
         self.registered_on = datetime.date.today()
+        self.darkMode = False
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)

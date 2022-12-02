@@ -30,7 +30,7 @@ db.init_app(app)
 @app.route('/index')
 def index():
     if session.get('user'):
-        return render_template("index.html", user=session['user'])
+        return render_template("index.html", user=session['user'], dark_mode=session['mode'])
     return render_template("index.html")
     
 
@@ -105,6 +105,39 @@ def delete_task(task_id):
     else:
         return redirect(url_for('login'))
 
+@app.route('/tasks/like/<task_id>', methods=['POST', 'GET'])
+def like_task(task_id):
+    if session.get('user'):
+        my_task = db.session.query(Task).filter_by(id=task_id).one()
+        if session[str(my_task.id)]:
+            newLikes = my_task.likes - 1
+            my_task.likes = newLikes
+            session[str(my_task.id)] = False
+        else:
+            newLikes = my_task.likes + 1
+            my_task.likes = newLikes
+            session[str(my_task.id)] = True
+
+        db.session.add(my_task)
+        db.session.commit()
+
+        return redirect(url_for('get_tasks'))
+    else:
+        return redirect(url_for('login'))
+
+# @app.route('/modechange')
+# def change_mode():
+
+#     if session.get('user'):
+#         if session['mode'] == False:
+#             session['mode'] == True
+#         else:
+#             session['mode'] == False
+
+#         return redirect(url_for('index'))
+#     else:
+#         return redirect(url_for('login'))
+
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     form = RegisterForm()
@@ -124,6 +157,10 @@ def register():
         # save the user's name to the session
         session['user'] = first_name
         session['user_id'] = new_user.id  # access id value from user model of this newly added user
+        session['mode'] = new_user.dark_mode
+        tasks = db.session.query(Task).all()
+        for current_task in tasks:
+            session[str(current_task.id)] = False
         # show user dashboard view
         return redirect(url_for('get_tasks'))
 
@@ -142,6 +179,11 @@ def login():
             # password match add user info to session
             session['user'] = the_user.first_name
             session['user_id'] = the_user.id
+            session['mode'] = the_user.dark_mode
+            tasks = db.session.query(Task).all()
+            for current_task in tasks:
+                session[str(current_task.id)] = False
+
             # render view
             return redirect(url_for('get_tasks'))
 
