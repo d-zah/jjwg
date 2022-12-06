@@ -39,7 +39,7 @@ def get_tasks():
     if session.get('user'):
         my_tasks = db.session.query(Task).all()
         
-        return render_template('tasks.html', tasks=my_tasks, user=session['user'], dark_mode=session['dark_mode'])
+        return render_template('tasks.html', tasks=my_tasks, user=session['user'], dark_mode=session['dark_mode'], user_id=session['user_id'])
     else:
         return redirect(url_for('login'))
 
@@ -65,6 +65,7 @@ def new_task():
             new_record = Task(title, text, today, session['user_id'])
             db.session.add(new_record)
             db.session.commit()
+            session[str(new_record.id)] = False
 
             return redirect(url_for('get_tasks'))
         else:
@@ -117,6 +118,22 @@ def like_task(task_id):
             newLikes = my_task.likes + 1
             my_task.likes = newLikes
             session[str(my_task.id)] = True
+
+        db.session.add(my_task)
+        db.session.commit()
+
+        return redirect(url_for('get_tasks'))
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/tasks/pin/<task_id>', methods=['POST', 'GET'])
+def pin_task(task_id):
+    if session.get('user'):
+        my_task = db.session.query(Task).filter_by(id=task_id).one()
+        if my_task.pinned:
+            my_task.pinned = False
+        else:
+            my_task.pinned = True
 
         db.session.add(my_task)
         db.session.commit()
@@ -211,7 +228,7 @@ def new_comment(task_id):
         if comment_form.validate_on_submit():
             # get comment data
             comment_text = request.form['comment']
-            new_record = Comment(comment_text, int(task_id), session['user_id'])
+            new_record = Comment(comment_text, int(task_id), session['user_id'], session['user'])
             db.session.add(new_record)
             db.session.commit()
 

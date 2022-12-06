@@ -40,17 +40,17 @@
             <tr>
                 <td>
                     <form action="{{ url_for('get_tasks') }}">
-                        <input type="submit" value="My Tasks">
+                        <input type="submit" value="My Tasks" class="big">
                     </form>
                 </td>
                 <td>
                     {% if dark_mode %}
                         <form action="{{ url_for('change_mode') }}">
-                            <input type="submit" value="Light Mode">
+                            <input type="submit" value="Light Mode" class="big">
                         </form>
                     {% else %}
                         <form action="{{ url_for('change_mode') }}">
-                            <input type="submit" value="Dark Mode">
+                            <input type="submit" value="Dark Mode" class="big">
                         </form>
                     {% endif %}
                 </td>

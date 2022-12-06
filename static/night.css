@@ -1,21 +1,54 @@
 body {
     padding: 30px 30px;
     font-family: 'Poppins', sans-serif;
+    font-size: 15pt;
     color: white;
-    background-color: rgb(4, 27, 4);
+    
+    background-image: url("northern-lights.jpeg");
+    background-size: cover;
+    resize: both;
+    overflow: scroll;
     }
 h1{
     color:rgb(146, 255, 146);
     font-family: 'Poppins', sans-serif;
+    text-align: center;
 }
 h2{
-    color:gold;
-    background:green;
+    color:rgb(193, 255, 184);
     font-family: 'Poppins', sans-serif;
+    text-align: center;
 }
 a{
-    color: rgb(199, 198, 255);
+    color: rgb(203, 255, 198);
+    text-decoration: none;
 }
-/* background{
-    color: rgb(13, 44, 73);
-} */
+input[type="submit"] {
+    background: green;
+    border: 0;
+    color: white;
+    border-radius: 5px;
+    margin-top: 2px;
+    font-weight: 400;
+    font-size: 15pt;
+    border: 1px solid green;
+  }
+  
+input[type="submit"]:hover {
+    cursor: pointer;
+    background: white;
+    color: green;
+}
+
+input[class="big"] {
+    border-radius: 10px;
+    margin-top: 2px;
+    font-weight: 400;
+    font-size: 18pt;
+    padding: 13px 15px;
+}
+table{
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-left: auto;
+    margin-right: auto;
+}

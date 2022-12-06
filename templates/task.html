@@ -11,7 +11,7 @@
         {% else %}
             <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
         {% endif %}
-        
+
     </head>
     <body>
         <nav>
@@ -22,7 +22,6 @@
 
         </nav>
         
-        <h1>Welcome {{user}} to the 49er Task Manager App!</h1>
         <h1>Task details</h1>
 
         <table>
@@ -43,7 +42,7 @@
                 <h2>Comments</h2>
                 <ul>
                 {% for comment in task.comments %}
-                    <li>{{ comment.content }}</li>
+                    <li>{{ comment.user_name }}: {{ comment.content }}</li>
                 {% endfor %}
                 </ul>
             {% endif %}

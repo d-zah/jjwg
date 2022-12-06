@@ -32,6 +32,41 @@
                 <th>Date</th>
             </tr>
             {% for task in tasks %}
+                {% if task.pinned %}
+            <tr>
+                    
+                <td>
+                    <form action="{{ url_for('like_task', task_id=task.id) }}">
+                            <input type="submit" value="{{ task.likes }} Likes">
+                    </form> 
+                </td>
+                <td><a href="{{ url_for('get_task', task_id=task.id) }}">{{ task.title }}</a></td>
+                <td>{{ task.date }}</td>
+                <!-- <td><a href="{{ url_for('update_task', task_id=task.id) }}">Edit</a></td> -->
+                
+                <td>
+                    <form action="{{ url_for('pin_task', task_id=task.id) }}">
+                        <input type="submit" value="Unpin">
+                    </form>
+                </td>
+                {% if task.user_id == user_id %}
+                    <td>
+                        <form action="{{ url_for('update_task', task_id=task.id) }}">
+                            <input type="submit" value="Edit">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{ url_for('delete_task', task_id=task.id) }}" method="post">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
+                {% endif %}
+            </tr>
+                {% endif %}        
+            {% endfor %}
+
+            {% for task in tasks %}
+                {% if task.pinned == False %}
             <tr>
                 <td>
                         <form action="{{ url_for('like_task', task_id=task.id) }}">
@@ -43,16 +78,24 @@
                 <!-- <td><a href="{{ url_for('update_task', task_id=task.id) }}">Edit</a></td> -->
                 
                 <td>
-                    <form action="{{ url_for('update_task', task_id=task.id) }}">
-                        <input type="submit" value="Edit">
+                    <form action="{{ url_for('pin_task', task_id=task.id) }}">
+                        <input type="submit" value="Pin">
                     </form>
                 </td>
-                <td>
-                    <form action="{{ url_for('delete_task', task_id=task.id) }}" method="post">
-                        <input type="submit" value="Delete">
-                    </form>
-                </td>
+                {% if task.user_id == user_id %}
+                    <td>
+                        <form action="{{ url_for('update_task', task_id=task.id) }}">
+                            <input type="submit" value="Edit">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{ url_for('delete_task', task_id=task.id) }}" method="post">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
+                {% endif %}
             </tr>
+                {% endif %}        
             {% endfor %}
         </table>
     </body>

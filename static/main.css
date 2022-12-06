@@ -1,17 +1,57 @@
 body {
     padding: 30px 30px;
     font-family: 'Poppins', sans-serif;
-    background-color: white;
+    font-size: 15pt;
+    /* background-color: white; */
+
+    background-image: url("light-background.jpeg");
+    background-size: cover;
+    resize: both;
+    overflow: scroll;
     }
 h1{
     color:green;
     font-family: 'Poppins', sans-serif;
+    text-align: center;
 }
 h2{
-    color:gold;
-    background:green;
+    color:rgb(60, 141, 48);
     font-family: 'Poppins', sans-serif;
+    text-align: center;
 }
 background{
     color: white;
+}
+a{
+    color: rgb(24, 129, 10);
+    text-decoration: none;
+}
+input[type="submit"] {
+    background: green;
+    border: 0;
+    color: white;
+    border-radius: 5px;
+    margin-top: 2px;
+    font-weight: 400;
+    font-size: 15pt;
+    border: 1px solid green;
+  }
+  
+input[type="submit"]:hover {
+    cursor: pointer;
+    background: white;
+    color: green;
+}
+
+input[class="big"] {
+    border-radius: 10px;
+    margin-top: 2px;
+    font-weight: 400;
+    font-size: 18pt;
+    padding: 13px 15px;
+}
+table{
+    background-color: rgba(255, 255, 255, 0.5);
+    margin-left: auto;
+    margin-right: auto;
 }
