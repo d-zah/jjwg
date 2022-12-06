@@ -6,7 +6,12 @@
         <meta name="description" content="UNCC tasks App">
         <title>UNCC Task Manager App - New Task</title>
         <!-- styles -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+        {% if dark_mode %}
+            <link rel="stylesheet" href="{{ url_for('static', filename='night.css') }}">
+        {% else %}
+            <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+        {% endif %}
+
     </head>
     <body>
        <nav>

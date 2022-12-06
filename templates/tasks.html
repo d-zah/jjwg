@@ -6,15 +6,19 @@
         <meta name="description" content="UNCC Task Manager App">
         <title>UNCC Task Manager App - View your Tasks</title>
         <!-- styles -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-    
+        {% if dark_mode %}
+            <link rel="stylesheet" href="{{ url_for('static', filename='night.css') }}">
+        {% else %}
+            <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+        {% endif %}
+
     </head>
     <body>
         <nav>
             <a href="{{ url_for('index') }}"> Home</a> ||
             <a href="{{ url_for('get_tasks') }}"> My Tasks</a> ||
             <a href="{{ url_for('new_task') }}"> Add Task</a> || 
-            <a href="{{ url_for('logout') }}"> Logout</a> || 
+            <a href="{{ url_for('logout') }}"> Logout</a> 
 
         </nav>
 

@@ -30,7 +30,7 @@ db.init_app(app)
 @app.route('/index')
 def index():
     if session.get('user'):
-        return render_template("index.html", user=session['user'], dark_mode=session['mode'])
+        return render_template("index.html", user=session['user'], dark_mode=session['dark_mode'])
     return render_template("index.html")
     
 
@@ -39,7 +39,7 @@ def get_tasks():
     if session.get('user'):
         my_tasks = db.session.query(Task).all()
         
-        return render_template('tasks.html', tasks=my_tasks, user=session['user'])
+        return render_template('tasks.html', tasks=my_tasks, user=session['user'], dark_mode=session['dark_mode'])
     else:
         return redirect(url_for('login'))
 
@@ -49,7 +49,7 @@ def get_task(task_id):
 
         my_task = db.session.query(Task).filter_by(id=task_id).one()
         form = CommentForm()
-        return render_template('task.html', task=my_task, user=session['user'], form=form)
+        return render_template('task.html', task=my_task, user=session['user'], form=form, dark_mode=session['dark_mode'])
     else:
         return redirect(url_for('login'))
 
@@ -68,7 +68,7 @@ def new_task():
 
             return redirect(url_for('get_tasks'))
         else:
-            return render_template('new.html', user=session['user'])
+            return render_template('new.html', user=session['user'], dark_mode=session['dark_mode'])
     else:
         return redirect(url_for('login'))
 
@@ -91,7 +91,7 @@ def update_task(task_id):
 
             my_task = db.session.query(Task).filter_by(id=task_id).one()
 
-            return render_template('new.html', task=my_task, user=session['user'])
+            return render_template('new.html', task=my_task, user=session['user'], dark_mode=session['dark_mode'])
     else:
         return redirect(url_for('login'))
 
@@ -125,18 +125,18 @@ def like_task(task_id):
     else:
         return redirect(url_for('login'))
 
-# @app.route('/modechange')
-# def change_mode():
+@app.route('/modechange', methods=['POST', 'GET'])
+def change_mode():
 
-#     if session.get('user'):
-#         if session['mode'] == False:
-#             session['mode'] == True
-#         else:
-#             session['mode'] == False
+    if session.get('user'):
+        if session['dark_mode'] == False:
+            session['dark_mode'] = True
+        else:
+            session['dark_mode'] = False
 
-#         return redirect(url_for('index'))
-#     else:
-#         return redirect(url_for('login'))
+        return redirect(url_for('index'))
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
@@ -157,12 +157,12 @@ def register():
         # save the user's name to the session
         session['user'] = first_name
         session['user_id'] = new_user.id  # access id value from user model of this newly added user
-        session['mode'] = new_user.dark_mode
+        session['dark_mode'] = False
         tasks = db.session.query(Task).all()
         for current_task in tasks:
             session[str(current_task.id)] = False
         # show user dashboard view
-        return redirect(url_for('get_tasks'))
+        return redirect(url_for('index'))
 
     # something went wrong - display register view
     return render_template('register.html', form=form)
@@ -179,13 +179,13 @@ def login():
             # password match add user info to session
             session['user'] = the_user.first_name
             session['user_id'] = the_user.id
-            session['mode'] = the_user.dark_mode
+            session['dark_mode'] = False
             tasks = db.session.query(Task).all()
             for current_task in tasks:
                 session[str(current_task.id)] = False
 
             # render view
-            return redirect(url_for('get_tasks'))
+            return redirect(url_for('index'))
 
         # password check failed
         # set error message to alert user

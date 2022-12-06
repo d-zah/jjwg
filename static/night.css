@@ -1,0 +1,21 @@
+body {
+    padding: 30px 30px;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    background-color: rgb(4, 27, 4);
+    }
+h1{
+    color:rgb(146, 255, 146);
+    font-family: 'Poppins', sans-serif;
+}
+h2{
+    color:gold;
+    background:green;
+    font-family: 'Poppins', sans-serif;
+}
+a{
+    color: rgb(199, 198, 255);
+}
+/* background{
+    color: rgb(13, 44, 73);
+} */

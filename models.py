@@ -25,7 +25,6 @@ class User(db.Model):
     email = db.Column("email", db.String(100))
     password = db.Column(db.String(255), nullable=False)
     registered_on = db.Column(db.DateTime, nullable=False)
-    dark_mode = db.Column("dark_mode", db.Boolean)
     tasks = db.relationship("Task", backref="user", lazy=True)
     comments = db.relationship("Comment", backref="user", lazy=True)
 
@@ -35,7 +34,6 @@ class User(db.Model):
         self.email = email
         self.password = password
         self.registered_on = datetime.date.today()
-        self.darkMode = False
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
