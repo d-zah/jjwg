@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="UNCC tasks App">
-        <title>UNCC Task Manager App - New Task</title>
+        <title>TT - New Task</title>
         <!-- styles -->
         {% if dark_mode %}
             <link rel="stylesheet" href="{{ url_for('static', filename='night.css') }}">
@@ -16,7 +16,7 @@
     <body>
        <nav>
            <!--  add navigation links -->
-
+           <a href="{{ url_for('get_tasks') }}">Back</a>
         </nav>
 
         {% if task %}

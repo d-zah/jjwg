@@ -55,3 +55,6 @@ table{
     margin-left: auto;
     margin-right: auto;
 }
+.comment_title{
+    text-align: left;
+  }
